@@ -1,0 +1,30 @@
+Web-RTC개론
+
+-websoket(서버)를 통한 통신과의 차이점
+  각각의 클라이언트들은 서버를 매개로 통신을 하는 것
+  많은 클라이언트와 서버의 연결이 있을 때 딜레이가 발생하게 되는데 ,실시간 채팅이나 라이브방송에는 적합하지 않은 통신방식이다	
+
+-webRTC
+ 서버를 거치지 않고 브라우저간 직접 통신(p2p방식)을 함으로서 딜레이가 거의 없다 , 그래서  Real Time Communication 이라고 한다
+
+클라이언트 A와 클라이언트 B가 있다고 가정하자
+
+   1  :  A의 세션,프로토콜 같은 미디어 구성이 포함된 제안 SDP(두 세션 개체 간의 미디어 협상에 사용되는 필수 미디어 정보입니다.)를 signaling server에 보낸다 
+         -signaling server는 처음 연결할 때만 필요하다.
+
+   2  :  signaling server는 1의  SDP를 B에게 보내준다
+   3 :  B는 SDP를 로컬메모리에 저장한 후 ANSWER(SDP)를 signaling server에 보내준다
+   4 : signaling server는 다시 A에게 ANSWER(SDP)을 전달한다
+
+   ============서로의 미디어 구성에 대해 알고 있지만, 여전히 서로 연결하는 방법은 모르는 상태=================
+
+  5: A가 STUN&TURN서버에서 생성된 ip/protocol의 조합인 candidate들 중 최적의 경로를 ICE가 찾아주고 , 
+     이를 signaling server에 보내주고 
+   6: signaling server는 다시 이를 B에 보내준다
+======================연결완료======================
+
+이제 A와B는 서버없이 통신이 가능해졌다.
+이를  WEB-RTC라고 한다.
+
+
+
